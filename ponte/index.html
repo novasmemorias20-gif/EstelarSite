@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Ponte de Comando — Estelar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul: #0B5FA5;
+    --azul-escuro: #0A2540;
+    --azul-claro: #EAF2FA;
+    --laranja: #F2994A;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F5F7FA;
+    --cinza-borda: #DCE3EA;
+    --texto: #2A3441;
+    --texto-suave: #6B7686;
+    --sombra: 0 4px 16px rgba(10,37,64,.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'Inter',sans-serif; color:var(--texto);
+    background:linear-gradient(135deg,var(--azul-escuro),var(--azul));
+    min-height:100vh;
+  }
+  h1,h2,.display{font-family:'Poppins',sans-serif;}
+
+  /* ---- Tela de senha ---- */
+  #telaSenha{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .painel-senha{
+    background:#fff; border-radius:20px; box-shadow:var(--sombra); padding:36px 30px;
+    max-width:360px; width:100%; text-align:center;
+  }
+  .painel-senha .estrela{
+    width:56px;height:56px;border-radius:16px;background:var(--laranja);
+    display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;
+    margin:0 auto 16px;
+  }
+  .painel-senha h1{font-size:1.25rem;margin:0 0 4px;color:var(--azul-escuro);}
+  .painel-senha p{font-size:.85rem;color:var(--texto-suave);margin:0 0 20px;}
+  .painel-senha input{
+    width:100%;padding:12px 14px;border:1.5px solid var(--cinza-borda);border-radius:10px;
+    font-family:'Inter',sans-serif;font-size:1rem;margin-bottom:12px;text-align:center;letter-spacing:.05em;
+  }
+  .painel-senha input:focus{outline:2px solid var(--azul);outline-offset:1px;}
+  .painel-senha button{
+    width:100%;border:none;border-radius:10px;padding:12px;font-weight:600;font-size:.92rem;
+    background:var(--azul);color:#fff;cursor:pointer;font-family:'Inter',sans-serif;
+  }
+  .painel-senha button:hover{background:var(--azul-escuro);}
+  .erro-senha{color:#D8534A;font-size:.8rem;margin-top:10px;display:none;}
+  .erro-senha.mostrar{display:block;}
+
+  /* ---- Painel principal ---- */
+  #telaPainel{display:none; min-height:100vh; padding:32px 20px 60px;}
+  .topo-painel{max-width:820px;margin:0 auto 28px;color:#fff;display:flex;align-items:center;gap:14px;}
+  .topo-painel .estrela{
+    width:46px;height:46px;border-radius:13px;background:var(--laranja);
+    display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+  }
+  .topo-painel h1{margin:0;font-size:1.4rem;}
+  .topo-painel p{margin:2px 0 0;font-size:.85rem;color:#CFE1F2;}
+
+  .grid-links{max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:600px){.grid-links{grid-template-columns:1fr;}}
+
+  .card-link{
+    background:#fff;border-radius:16px;padding:20px;box-shadow:var(--sombra);
+    text-decoration:none;color:var(--texto);display:flex;align-items:center;gap:14px;
+    transition:transform .15s ease;
+  }
+  .card-link:hover{transform:translateY(-2px);}
+  .card-link .icone{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:20px;flex-shrink:0;color:#fff;
+  }
+  .card-link .txt h3{margin:0 0 2px;font-size:.95rem;color:var(--azul-escuro);}
+  .card-link .txt p{margin:0;font-size:.78rem;color:var(--texto-suave);}
+  .card-link.desabilitado{opacity:.55;pointer-events:none;}
+  .card-link.desabilitado .txt p{font-style:italic;}
+
+  .i-notion{background:var(--azul-escuro);}
+  .i-orc{background:var(--azul);}
+  .i-contrato{background:#8C97A6;}
+  .i-insta{background:linear-gradient(135deg,#F58529,#DD2A7B,#8134AF);}
+  .i-whats{background:#25D366;}
+
+  .secao-titulo{max-width:820px;margin:26px auto 12px;color:#CFE1F2;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600;padding-left:2px;}
+  .rodape-painel{max-width:820px;margin:36px auto 0;text-align:center;color:#AFC7DE;font-size:.72rem;}
+</style>
+</head>
+<body>
+
+<!-- TELA DE SENHA -->
+<div id="telaSenha">
+  <div class="painel-senha">
+    <div class="estrela">❄</div>
+    <h1>Ponte de Comando</h1>
+    <p>Acesso restrito — Estelar Climatização Inteligente</p>
+    <input type="password" id="campoSenha" placeholder="Senha" autocomplete="off" onkeydown="if(event.key==='Enter')verificarSenha()">
+    <button onclick="verificarSenha()">Entrar</button>
+    <div class="erro-senha" id="erroSenha">Senha incorreta. Tente novamente.</div>
+  </div>
+</div>
+
+<!-- PAINEL PRINCIPAL (só aparece após senha correta) -->
+<div id="telaPainel">
+  <div class="topo-painel">
+    <div class="estrela">❄</div>
+    <div>
+      <h1>Ponte de Comando</h1>
+      <p>Central de acesso rápido à gestão da Estelar</p>
+    </div>
+  </div>
+
+  <div class="secao-titulo">Gestão</div>
+  <div class="grid-links">
+    <a class="card-link" id="linkNotion" href="#" target="_blank" rel="noopener">
+      <div class="icone i-notion">🗂</div>
+      <div class="txt"><h3>Estelar painel</h3><p>Abrir workspace no Notion</p></div>
+    </a>
+    <a class="card-link" id="linkOrcamento" href="#" target="_blank" rel="noopener">
+      <div class="icone i-orc">🧮</div>
+      <div class="txt"><h3>Calculadora de Orçamento</h3><p>Instalação, manutenção, higienização</p></div>
+    </a>
+    <div class="card-link desabilitado">
+      <div class="icone i-contrato">📄</div>
+      <div class="txt"><h3>Contrato de Manutenção</h3><p>Em breve — ainda não hospedada</p></div>
+    </div>
+  </div>
+
+  <div class="secao-titulo">Redes e contato</div>
+  <div class="grid-links">
+    <a class="card-link" id="linkInsta" href="#" target="_blank" rel="noopener">
+      <div class="icone i-insta">📷</div>
+      <div class="txt"><h3>Instagram</h3><p>@estelar.arcondicionado</p></div>
+    </a>
+    <a class="card-link" id="linkWhats" href="#" target="_blank" rel="noopener">
+      <div class="icone i-whats">💬</div>
+      <div class="txt"><h3>WhatsApp</h3><p>(18) 99169-0009</p></div>
+    </a>
+  </div>
+
+  <div class="rodape-painel">Estelar Climatização Inteligente · Página de uso interno</div>
+</div>
+
+<script>
+  // Troque a senha abaixo. Fica visível a quem souber olhar o código-fonte
+  // — serve só para afastar visitantes casuais, não é proteção real.
+  const SENHA_CORRETA = "estelar2026";
+
+  // Os links só são escritos no HTML depois da senha certa,
+  // então não aparecem para quem só olhar o código-fonte sem acesso.
+  const LINKS = {
+    notion: "https://app.notion.com/p/Estelar-painel-a28bbac50d4e82698adb01719b6b909d",
+    orcamento: "https://novasmemorias20-gif.github.io/estelar-orcamento/",
+    instagram: "https://instagram.com/estelar.arcondicionado",
+    whatsapp: "https://wa.me/5518991690009"
+  };
+
+  function verificarSenha(){
+    const valor = document.getElementById('campoSenha').value;
+    if(valor === SENHA_CORRETA){
+      document.getElementById('linkNotion').href = LINKS.notion;
+      document.getElementById('linkOrcamento').href = LINKS.orcamento;
+      document.getElementById('linkInsta').href = LINKS.instagram;
+      document.getElementById('linkWhats').href = LINKS.whatsapp;
+
+      document.getElementById('telaSenha').style.display = 'none';
+      document.getElementById('telaPainel').style.display = 'block';
+    } else {
+      document.getElementById('erroSenha').classList.add('mostrar');
+      document.getElementById('campoSenha').value = '';
+      document.getElementById('campoSenha').focus();
+    }
+  }
+</script>
+</body>
+</html>
