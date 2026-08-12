@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estelar — Orçamento de Contrato de Manutenção</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul: #0B5FA5;
+    --azul-escuro: #0A2540;
+    --azul-claro: #EAF2FA;
+    --laranja: #F2994A;
+    --branco: #FFFFFF;
+    --cinza-fundo: #F5F7FA;
+    --cinza-borda: #DCE3EA;
+    --texto: #2A3441;
+    --texto-suave: #6B7686;
+    --bom: #2E9E5B;
+    --regular: #E0A526;
+    --ruim: #D8534A;
+    --sombra: 0 4px 16px rgba(10,37,64,.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:'Inter',sans-serif; color:var(--texto);
+    background:var(--cinza-fundo);
+  }
+  h1,h2,h3,.display{font-family:'Poppins',sans-serif;}
+  .topo{
+    background:linear-gradient(135deg,var(--azul-escuro),var(--azul));
+    color:#fff; padding:28px 20px 60px;
+  }
+  .topo-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;}
+  .topo-inner .estrela{
+    width:44px;height:44px;border-radius:12px;background:var(--laranja);
+    display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+  }
+  .topo h1{margin:0;font-size:1.35rem;font-weight:700;}
+  .topo p{margin:2px 0 0;font-size:.85rem;color:#CFE1F2;}
+  .wrap{max-width:1100px;margin:-38px auto 60px;padding:0 20px;display:grid;grid-template-columns:1.5fr 1fr;gap:20px;}
+  @media(max-width:860px){.wrap{grid-template-columns:1fr;}}
+  .card{
+    background:var(--branco); border-radius:16px; box-shadow:var(--sombra);
+    padding:22px; margin-bottom:20px; border:1px solid var(--cinza-borda);
+  }
+  .card h2{font-size:1.02rem;margin:0 0 4px;color:var(--azul-escuro);}
+  .card .sub{font-size:.8rem;color:var(--texto-suave);margin:0 0 16px;}
+  label{font-size:.78rem;font-weight:600;color:var(--texto-suave);display:block;margin-bottom:4px;}
+  input,select{
+    width:100%;padding:9px 10px;border:1px solid var(--cinza-borda);border-radius:9px;
+    font-family:'Inter',sans-serif;font-size:.9rem;background:#fff;color:var(--texto);
+  }
+  input:focus,select:focus{outline:2px solid var(--azul);outline-offset:1px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .field{margin-bottom:12px;}
+
+  .equip{
+    border:1px solid var(--cinza-borda); border-radius:12px; padding:14px; margin-bottom:12px;
+    background:var(--cinza-fundo); position:relative;
+  }
+  .equip .num{
+    position:absolute; top:-10px; left:12px; background:var(--azul); color:#fff;
+    font-size:.7rem; font-weight:700; padding:2px 9px; border-radius:20px;
+  }
+  .equip-grid{display:grid;grid-template-columns:1.3fr 1fr .7fr 1fr 1fr auto;gap:10px;align-items:end;}
+  @media(max-width:700px){.equip-grid{grid-template-columns:1fr 1fr;}}
+  .remover{
+    background:none;border:none;color:var(--ruim);cursor:pointer;font-size:1.1rem;
+    padding:8px;line-height:1;
+  }
+  .btn{
+    border:none;border-radius:10px;padding:11px 18px;font-weight:600;font-size:.88rem;
+    cursor:pointer;font-family:'Inter',sans-serif;
+  }
+  .btn-azul{background:var(--azul);color:#fff;}
+  .btn-azul:hover{background:var(--azul-escuro);}
+  .btn-laranja{background:var(--laranja);color:#fff;}
+  .btn-laranja:hover{background:#d97f34;}
+  .btn-outline{background:#fff;color:var(--azul);border:1.5px solid var(--azul);}
+  .btn-outline:hover{background:var(--azul-claro);}
+  .btn-full{width:100%;}
+  .btn-sm{padding:7px 12px;font-size:.78rem;}
+
+  .resumo-sticky{position:sticky;top:20px;}
+  .linha{display:flex;justify-content:space-between;font-size:.85rem;padding:7px 0;border-bottom:1px dashed var(--cinza-borda);}
+  .linha:last-child{border-bottom:none;}
+  .linha .lbl{color:var(--texto-suave);}
+  .linha .val{font-weight:600;}
+  .total-box{
+    background:var(--azul-escuro); color:#fff; border-radius:14px; padding:18px; margin-top:14px;
+  }
+  .total-box .rot{font-size:.75rem;color:#AFC7DE;text-transform:uppercase;letter-spacing:.04em;}
+  .total-box .num{font-family:'Poppins',sans-serif;font-size:1.9rem;font-weight:700;margin:2px 0;}
+  .total-box .freq{font-size:.78rem;color:#CFE1F2;}
+  .badge{
+    display:inline-block; font-size:.68rem; font-weight:700; padding:2px 8px; border-radius:20px;
+    color:#fff; text-transform:uppercase; letter-spacing:.03em;
+  }
+  .b-bom{background:var(--bom);} .b-regular{background:var(--regular);} .b-ruim{background:var(--ruim);}
+
+  .carga-termica{
+    margin-top:12px; border:1.5px dashed var(--cinza-borda); border-radius:12px; padding:12px 14px;
+    background:#FAFBFC;
+  }
+  .carga-termica .ct-rot{font-size:.68rem;color:var(--texto-suave);text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px;}
+  .carga-termica .ct-valores{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.05rem;color:var(--azul-escuro);}
+  .carga-termica .ct-sep{color:var(--cinza-borda);margin:0 4px;}
+  .carga-termica .ct-badge{margin-top:6px;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-block;}
+  .ct-simples{background:#E4F5EA;color:var(--bom);}
+  .ct-rt{background:#FCE9E8;color:var(--ruim);}
+
+  .actions-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  .actions-row .btn{flex:1;min-width:140px;}
+  #arquivoInput{display:none;}
+  .toggle-precos{cursor:pointer;font-size:.78rem;color:var(--azul);font-weight:600;user-select:none;}
+  .precos-panel{display:none;margin-top:12px;border-top:1px solid var(--cinza-borda);padding-top:12px;}
+  .precos-panel.aberto{display:block;}
+  .precos-panel .grid3{margin-bottom:8px;}
+  .precos-panel label{font-size:.7rem;}
+
+  /* Tela de impressão / visualização do orçamento */
+  #telaResumo{display:none;}
+  #telaContrato{display:none;}
+  #telaResumo.ativa, #telaContrato.ativa{display:block;position:fixed;inset:0;background:#fff;z-index:999;overflow:auto;}
+  .doc{max-width:760px;margin:0 auto;padding:40px 30px;}
+  .doc-topo{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--laranja);padding-bottom:16px;margin-bottom:24px;}
+  .doc-topo .marca{display:flex;align-items:center;gap:10px;}
+  .doc-topo .marca .estrela{width:38px;height:38px;border-radius:10px;background:var(--laranja);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;}
+  .doc-topo h1{font-size:1.15rem;margin:0;color:var(--azul-escuro);}
+  .doc-topo p{margin:0;font-size:.78rem;color:var(--texto-suave);}
+  .doc-topo .datas{text-align:right;font-size:.78rem;color:var(--texto-suave);}
+  .doc table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.85rem;}
+  .doc th{text-align:left;background:var(--azul-claro);color:var(--azul-escuro);padding:8px 10px;font-size:.72rem;text-transform:uppercase;}
+  .doc td{padding:8px 10px;border-bottom:1px solid var(--cinza-borda);}
+  .doc-total{background:var(--azul-escuro);color:#fff;border-radius:12px;padding:18px 20px;margin-top:18px;}
+  .fechar-resumo{position:fixed;top:16px;right:16px;z-index:1000;}
+
+  /* Documento de contrato */
+  .doc-contrato{max-width:760px;margin:0 auto;padding:40px 30px;font-size:.9rem;line-height:1.5;}
+  .doc-contrato h2.ct-h1{font-size:1.3rem;text-align:center;color:var(--azul-escuro);margin:0 0 4px;}
+  .doc-contrato .ct-sub{text-align:center;color:var(--azul);font-style:italic;margin:0 0 24px;font-size:.85rem;}
+  .doc-contrato h3.ct-secao{font-size:.95rem;color:var(--azul-escuro);border-bottom:2px solid var(--laranja);padding-bottom:4px;margin:26px 0 12px;}
+  .doc-contrato .ct-clausula-titulo{font-weight:700;color:var(--azul-escuro);margin:16px 0 4px;font-size:.85rem;}
+  .doc-contrato p{margin:0 0 8px;text-align:justify;}
+  .doc-contrato .ct-campo{margin:0 0 6px;font-size:.87rem;}
+  .doc-contrato .ct-campo b{display:inline-block;min-width:150px;}
+  .doc-contrato .ct-assinatura{text-align:center;margin-top:50px;}
+  .doc-contrato .ct-linha-assinatura{border-top:1px solid #333;width:320px;margin:0 auto;padding-top:6px;font-weight:600;font-size:.85rem;}
+  @media print{
+    body *{visibility:hidden;}
+    .tela-imprimir.ativa, .tela-imprimir.ativa *{visibility:visible;}
+    .tela-imprimir.ativa{position:absolute;inset:0;display:block !important;}
+    .fechar-resumo, .no-print{display:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <div class="topo-inner">
+    <div class="estrela">❄</div>
+    <div>
+      <h1>Estelar — Contrato de Manutenção</h1>
+      <p>Monte, salve e atualize orçamentos de manutenção para empresas, hotéis, mercados e clínicas</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div>
+    <!-- DADOS DO CLIENTE -->
+    <div class="card">
+      <h2>Dados do cliente</h2>
+      <p class="sub">Essas informações aparecem no orçamento final</p>
+      <div class="grid2">
+        <div class="field"><label>Nome / Razão social</label><input id="clienteNome" placeholder="Ex: Hotel Vista Bela"></div>
+        <div class="field"><label>Tipo de local</label>
+          <select id="clienteTipo">
+            <option>Empresa / Escritório</option>
+            <option>Hotel / Pousada</option>
+            <option>Mercado / Varejo</option>
+            <option>Clínica / Consultório</option>
+            <option>Indústria</option>
+            <option>Condomínio</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="field"><label>CNPJ / CPF</label><input id="clienteCnpj" placeholder="00.000.000/0000-00"></div>
+        <div class="field"><label>Nome do responsável</label><input id="clienteResponsavel" placeholder="Quem está fechando o contrato"></div>
+        <div class="field"><label>Contato (WhatsApp)</label><input id="clienteContato" placeholder="(18) 9...."></div>
+        <div class="field"><label>Endereço / Cidade</label><input id="clienteEndereco" placeholder="Bairro, cidade"></div>
+      </div>
+    </div>
+
+    <!-- EQUIPAMENTOS -->
+    <div class="card">
+      <h2>Equipamentos</h2>
+      <p class="sub">Adicione cada aparelho ou grupo de aparelhos iguais do contrato</p>
+      <div id="listaEquip"></div>
+      <button class="btn btn-outline btn-full" onclick="adicionarEquip()">+ Adicionar equipamento</button>
+    </div>
+
+    <!-- DESLOCAMENTO E CONTRATO -->
+    <div class="card">
+      <h2>Deslocamento e frequência</h2>
+      <div class="grid2">
+        <div class="field"><label>Distância até o local (km, ida)</label><input type="number" id="distanciaKm" value="0" min="0" oninput="calcular()"></div>
+        <div class="field"><label>Visitas por ano</label>
+          <select id="freqPreset" onchange="atualizarFreq()">
+            <option value="12">Mensal (12x/ano)</option>
+            <option value="4">Trimestral (4x/ano)</option>
+            <option value="2">Semestral (2x/ano)</option>
+            <option value="1">Anual (1x/ano)</option>
+            <option value="custom">Personalizado</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" id="freqCustomWrap" style="display:none;">
+        <label>Número de visitas por ano (personalizado)</label>
+        <input type="number" id="freqCustom" value="6" min="1" oninput="calcular()">
+      </div>
+    </div>
+
+    <!-- TABELA DE PREÇOS EDITÁVEL -->
+    <div class="card">
+      <span class="toggle-precos" onclick="togglePrecos()">⚙ Ajustar tabela de preços (valores médios editáveis)</span>
+      <div class="precos-panel" id="precosPanel">
+        <p class="sub" style="margin-top:10px;">Preço base = por visita, por equipamento. Ajuste aqui e o cálculo já atualiza.</p>
+        <div class="grid3">
+          <div class="field"><label>Base Split (R$)</label><input type="number" id="pBaseSplit" value="90" oninput="calcular()"></div>
+          <div class="field"><label>Base Cassete (R$)</label><input type="number" id="pBaseCassete" value="110" oninput="calcular()"></div>
+          <div class="field"><label>Base Piso Teto (R$)</label><input type="number" id="pBasePisoTeto" value="110" oninput="calcular()"></div>
+        </div>
+        <div class="grid3">
+          <div class="field"><label>Base Multi-Split (R$/evap.)</label><input type="number" id="pBaseMulti" value="90" oninput="calcular()"></div>
+          <div class="field"><label>Base VRF (R$/evap.)</label><input type="number" id="pBaseVrf" value="150" oninput="calcular()"></div>
+          <div class="field"><label>Adicional por porte 18k+ (R$)</label><input type="number" id="pPorte" value="40" oninput="calcular()"></div>
+        </div>
+        <div class="grid3">
+          <div class="field"><label>Mult. acesso médio</label><input type="number" step="0.05" id="mAcessoMedio" value="1.25" oninput="calcular()"></div>
+          <div class="field"><label>Mult. acesso difícil</label><input type="number" step="0.05" id="mAcessoDificil" value="1.75" oninput="calcular()"></div>
+          <div class="field"><label>Mult. condição regular</label><input type="number" step="0.05" id="mCondRegular" value="1.15" oninput="calcular()"></div>
+        </div>
+        <div class="grid3">
+          <div class="field"><label>Mult. condição ruim</label><input type="number" step="0.05" id="mCondRuim" value="1.4" oninput="calcular()"></div>
+          <div class="field"><label>R$ por km (ida e volta)</label><input type="number" step="0.5" id="pKm" value="2.5" oninput="calcular()"></div>
+          <div class="field"><label>Taxa fixa/visita (R$)</label><input type="number" id="pTaxaVisita" value="0" oninput="calcular()"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMO LATERAL -->
+  <div>
+    <div class="card resumo-sticky">
+      <h2>Resumo</h2>
+      <div id="resumoLinhas"></div>
+      <div class="total-box">
+        <div class="rot">Valor por visita</div>
+        <div class="num" id="totalVisita">R$ 0,00</div>
+        <div class="freq" id="totalAnual">Anual: R$ 0,00 · 0 visitas/ano</div>
+      </div>
+      <div class="carga-termica no-print" id="cargaTermicaBox">
+        <div class="ct-rot">Carga térmica total <span style="font-weight:400;">(uso interno, não aparece no orçamento do cliente)</span></div>
+        <div class="ct-valores">
+          <span id="ctBtu">0 BTU/h</span> <span class="ct-sep">·</span> <span id="ctTr">0,0 TR</span>
+        </div>
+        <div class="ct-badge" id="ctBadge"></div>
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-laranja" onclick="abrirResumo()">👁 Visualizar / Imprimir</button>
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-azul" onclick="baixarJson()">⬇ Baixar orçamento (.json)</button>
+        <button class="btn btn-outline" onclick="document.getElementById('arquivoInput').click()">⬆ Carregar (.json)</button>
+      </div>
+      <input type="file" id="arquivoInput" accept=".json" onchange="carregarJson(event)">
+
+      <div class="field" style="margin-top:14px;">
+        <label>Modelo de contrato</label>
+        <select id="tipoContratoOverride">
+          <option value="auto">Automático (pela carga térmica)</option>
+          <option value="pequena">Forçar: Pequenas empresas (sem RT)</option>
+          <option value="grande">Forçar: Empresas maiores (com RT/ART)</option>
+        </select>
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-laranja btn-full" onclick="abrirContrato()">📄 Gerar contrato preenchido</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TELA DE VISUALIZAÇÃO / IMPRESSÃO -->
+<div id="telaResumo" class="tela-imprimir">
+  <button class="btn btn-outline fechar-resumo no-print" onclick="fecharResumo()">✕ Fechar</button>
+  <div class="doc">
+    <div class="doc-topo">
+      <div class="marca">
+        <div class="estrela">❄</div>
+        <div>
+          <h1>Estelar Climatização Inteligente</h1>
+          <p>Orçamento — Contrato de Manutenção</p>
+        </div>
+      </div>
+      <div class="datas">
+        <div id="docData"></div>
+        <div>Validade: 15 dias</div>
+      </div>
+    </div>
+
+    <p style="font-size:.85rem;"><strong>Cliente:</strong> <span id="docCliente"></span><br>
+    <strong>Local:</strong> <span id="docEndereco"></span></p>
+
+    <table>
+      <thead><tr><th>Equipamento</th><th>Porte</th><th>Qtd</th><th>Acesso</th><th>Condição</th><th style="text-align:right;">Valor/visita</th></tr></thead>
+      <tbody id="docTabela"></tbody>
+    </table>
+
+    <div class="doc-total">
+      <div class="rot" style="font-size:.72rem;color:#AFC7DE;text-transform:uppercase;">Valor total do contrato</div>
+      <div style="font-family:'Poppins',sans-serif;font-size:1.7rem;font-weight:700;" id="docTotalVisita"></div>
+      <div style="font-size:.8rem;color:#CFE1F2;" id="docTotalAnual"></div>
+    </div>
+
+    <p style="font-size:.75rem;color:#6B7686;margin-top:20px;">Inclui deslocamento até o local. Peças e materiais de reposição não inclusos — orçados à parte quando necessário. Estelar Climatização Inteligente · (18) 99169-0009</p>
+  </div>
+</div>
+
+<!-- TELA DE CONTRATO PMOC PREENCHIDO -->
+<div id="telaContrato" class="tela-imprimir">
+  <button class="btn btn-outline fechar-resumo no-print" onclick="fecharContrato()">✕ Fechar</button>
+  <div class="doc-contrato" id="docContratoConteudo"></div>
+</div>
+
+<script>
+let equipamentos = [];
+let contadorId = 0;
+
+const TIPOS = [
+  {id:'split', label:'Split Hi-Wall'},
+  {id:'cassete', label:'Cassete'},
+  {id:'pisoteto', label:'Piso Teto'},
+  {id:'multi', label:'Multi-Split (por evap.)'},
+  {id:'vrf', label:'VRF (por evap.)'},
+];
+const PORTES = ['9k','12k','18k','24k','30k','36k+'];
+const ACESSOS = [{id:'facil',label:'Fácil'},{id:'medio',label:'Médio'},{id:'dificil',label:'Difícil'}];
+const CONDICOES = [{id:'bom',label:'Bom'},{id:'regular',label:'Regular'},{id:'ruim',label:'Ruim'}];
+
+function novoEquip(dados){
+  contadorId++;
+  const eq = Object.assign({
+    id: contadorId, tipo:'split', porte:'9k', qtd:1, acesso:'facil', condicao:'bom'
+  }, dados||{});
+  if((eq.tipo==='multi' || eq.tipo==='vrf') && !eq.evaps){
+    eq.evaps = [{porte:'9k', qtd:1}];
+  }
+  return eq;
+}
+
+function adicionarEquip(dados){
+  equipamentos.push(novoEquip(dados));
+  renderEquip();
+  calcular();
+}
+
+function removerEquip(id){
+  equipamentos = equipamentos.filter(e=>e.id!==id);
+  renderEquip();
+  calcular();
+}
+
+function renderEquip(){
+  const el = document.getElementById('listaEquip');
+  el.innerHTML = equipamentos.map((e,i)=>{
+    const ehMultiplo = (e.tipo==='multi' || e.tipo==='vrf');
+    const seletorTipo = `
+      <select onchange="atualizarEquip(${e.id},'tipo',this.value)">
+        ${TIPOS.map(t=>`<option value="${t.id}" ${e.tipo===t.id?'selected':''}>${t.label}</option>`).join('')}
+      </select>`;
+    const seletorAcesso = `
+      <select onchange="atualizarEquip(${e.id},'acesso',this.value)">
+        ${ACESSOS.map(a=>`<option value="${a.id}" ${e.acesso===a.id?'selected':''}>${a.label}</option>`).join('')}
+      </select>`;
+    const seletorCondicao = `
+      <select onchange="atualizarEquip(${e.id},'condicao',this.value)">
+        ${CONDICOES.map(c=>`<option value="${c.id}" ${e.condicao===c.id?'selected':''}>${c.label}</option>`).join('')}
+      </select>`;
+
+    if(ehMultiplo){
+      const evapsHtml = (e.evaps||[]).map((ev,idx)=>`
+        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:6px;align-items:end;">
+          <div><label>Porte evap. ${idx+1}</label>
+            <select onchange="atualizarEvap(${e.id},${idx},'porte',this.value)">
+              ${PORTES.map(p=>`<option ${ev.porte===p?'selected':''}>${p}</option>`).join('')}
+            </select>
+          </div>
+          <div><label>Qtd</label><input type="number" min="1" value="${ev.qtd}" onchange="atualizarEvap(${e.id},${idx},'qtd',this.value)"></div>
+          <button class="remover" title="Remover evaporadora" onclick="removerEvap(${e.id},${idx})">🗑</button>
+        </div>
+      `).join('');
+      return `
+        <div class="equip">
+     
