@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Ponte de Comando — Estelar</title>
+<title>Ponte de Comando â€” Estelar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -99,68 +99,67 @@
 <!-- TELA DE SENHA -->
 <div id="telaSenha">
   <div class="painel-senha">
-    <div class="estrela">❄</div>
+    <div class="estrela">â„</div>
     <h1>Ponte de Comando</h1>
-    <p>Acesso restrito — Estelar Climatização Inteligente</p>
+    <p>Acesso restrito â€” Estelar ClimatizaÃ§Ã£o Inteligente</p>
     <input type="password" id="campoSenha" placeholder="Senha" autocomplete="off" onkeydown="if(event.key==='Enter')verificarSenha()">
     <button onclick="verificarSenha()">Entrar</button>
     <div class="erro-senha" id="erroSenha">Senha incorreta. Tente novamente.</div>
   </div>
 </div>
 
-<!-- PAINEL PRINCIPAL (só aparece após senha correta) -->
+<!-- PAINEL PRINCIPAL (sÃ³ aparece apÃ³s senha correta) -->
 <div id="telaPainel">
   <div class="topo-painel">
-    <div class="estrela">❄</div>
+    <div class="estrela">â„</div>
     <div>
       <h1>Ponte de Comando</h1>
-      <p>Central de acesso rápido à gestão da Estelar</p>
+      <p>Central de acesso rÃ¡pido Ã  gestÃ£o da Estelar</p>
     </div>
   </div>
 
-  <div class="secao-titulo">Gestão</div>
+  <div class="secao-titulo">GestÃ£o</div>
   <div class="grid-links">
     <a class="card-link" id="linkNotion" href="#" target="_blank" rel="noopener">
-      <div class="icone i-notion">🗂</div>
+      <div class="icone i-notion">ðŸ—‚</div>
       <div class="txt"><h3>Estelar painel</h3><p>Abrir workspace no Notion</p></div>
     </a>
     <a class="card-link" id="linkOrcamento" href="#" target="_blank" rel="noopener">
-      <div class="icone i-orc">🧮</div>
-      <div class="txt"><h3>Calculadora de Orçamento</h3><p>Instalação, manutenção, higienização</p></div>
+      <div class="icone i-orc">ðŸ§®</div>
+      <div class="txt"><h3>Calculadora de OrÃ§amento</h3><p>InstalaÃ§Ã£o, manutenÃ§Ã£o, higienizaÃ§Ã£o</p></div>
     </a>
-    <div class="card-link" id="linkPmoc" href="#" target="_blank" rel="noopener">
-      <div class="icone i-contrato">📄</div>
-      <div class="txt"><h3>Contrato de Manutenção</h3><p>Cadastro e cálculo para contratos de manutenção</p></div>
-    </div>
+    <a class="card-link" id="linkContrato" href="#" target="_blank" rel="noopener">
+      <div class="icone i-contrato">ðŸ“„</div>
+      <div class="txt"><h3>Contrato de ManutenÃ§Ã£o</h3><p>Calculadora + minuta de PMOC</p></div>
+    </a>
   </div>
 
   <div class="secao-titulo">Redes e contato</div>
   <div class="grid-links">
     <a class="card-link" id="linkInsta" href="#" target="_blank" rel="noopener">
-      <div class="icone i-insta">📷</div>
+      <div class="icone i-insta">ðŸ“·</div>
       <div class="txt"><h3>Instagram</h3><p>@estelar.arcondicionado</p></div>
     </a>
     <a class="card-link" id="linkWhats" href="#" target="_blank" rel="noopener">
-      <div class="icone i-whats">💬</div>
+      <div class="icone i-whats">ðŸ’¬</div>
       <div class="txt"><h3>WhatsApp</h3><p>(18) 99169-0009</p></div>
     </a>
   </div>
 
-  <div class="rodape-painel">Estelar Climatização Inteligente · Página de uso interno</div>
+  <div class="rodape-painel">Estelar ClimatizaÃ§Ã£o Inteligente Â· PÃ¡gina de uso interno</div>
 </div>
 
 <script>
-  // Troque a senha abaixo. Fica visível a quem souber olhar o código-fonte
-  // — serve só para afastar visitantes casuais, não é proteção real.
+  // Troque a senha abaixo. Fica visÃ­vel a quem souber olhar o cÃ³digo-fonte
+  // â€” serve sÃ³ para afastar visitantes casuais, nÃ£o Ã© proteÃ§Ã£o real.
   const SENHA_CORRETA = "estelar2026";
 
-  // Os links só são escritos no HTML depois da senha certa,
-  // então não aparecem para quem só olhar o código-fonte sem acesso.
+  // Os links sÃ³ sÃ£o escritos no HTML depois da senha certa,
+  // entÃ£o nÃ£o aparecem para quem sÃ³ olhar o cÃ³digo-fonte sem acesso.
   const LINKS = {
     notion: "https://app.notion.com/p/Estelar-painel-a28bbac50d4e82698adb01719b6b909d",
     orcamento: "https://novasmemorias20-gif.github.io/estelar-orcamento/",
-    Pmoc:
-"https://novasmemorias20-gif.github.io/estelar-oecamento/pmoc",
+    contrato: "https://novasmemorias20-gif.github.io/estelar-orcamento/pmoc/",
     instagram: "https://instagram.com/estelar.arcondicionado",
     whatsapp: "https://wa.me/5518991690009"
   };
@@ -170,8 +169,7 @@
     if(valor === SENHA_CORRETA){
       document.getElementById('linkNotion').href = LINKS.notion;
       document.getElementById('linkOrcamento').href = LINKS.orcamento;
-
-      document.getElementById('linkPmoc').href = LINKS.Pmoc;
+      document.getElementById('linkContrato').href = LINKS.contrato;
       document.getElementById('linkInsta').href = LINKS.instagram;
       document.getElementById('linkWhats').href = LINKS.whatsapp;
 
