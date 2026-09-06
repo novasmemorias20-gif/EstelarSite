@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/cosmosclima",
+      "destination": "https://estelar-saas-deploy.vercel.app"
+    },
+    {
+      "source": "/cosmosclima/:path*",
+      "destination": "https://estelar-saas-deploy.vercel.app/:path*"
+    }
+  ]
+}
