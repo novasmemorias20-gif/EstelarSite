@@ -1,12 +1,14 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/cosmosclima",
-      "destination": "https://estelar-saas-deploy.vercel.app"
+      "destination": "https://app.estelarbrasil.com.br",
+      "permanent": true
     },
     {
       "source": "/cosmosclima/:path*",
-      "destination": "https://estelar-saas-deploy.vercel.app/:path*"
+      "destination": "https://app.estelarbrasil.com.br/:path*",
+      "permanent": true
     }
   ]
 }
